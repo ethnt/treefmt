@@ -124,7 +124,7 @@ pub fn run_treefmt(
     let walker = {
         // For some reason the WalkBuilder must start with one path, but can add more paths later.
         // unwrap: we checked before that there is at least one path in the vector
-        let mut builder = WalkBuilder::new(paths.first().unwrap()).hidden(false);
+        let mut builder = WalkBuilder::new(paths.first().unwrap());
         // Add the other paths
         for path in paths[1..].iter() {
             builder.add(path);
@@ -132,6 +132,7 @@ pub fn run_treefmt(
         // TODO: builder has a lot of interesting options.
         // TODO: use build_parallel with a Visitor.
         //       See https://docs.rs/ignore/0.4.17/ignore/struct.WalkParallel.html#method.visit
+        builder.hidden(false);
         builder.build()
     };
 
